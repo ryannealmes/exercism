@@ -6,11 +6,11 @@ class Squares
   end
 
   def sum_of_squares
-    (1..value).inject { |sum, i| sum + i**2 }
+    (value * (value + 1) * (2 * value + 1)) / 6
   end
 
   def square_of_sums
-    (1..value).inject(:+) ** 2
+    ((value + 1) * value / 2 ) ** 2
   end
 
   def difference
