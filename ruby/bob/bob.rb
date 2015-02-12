@@ -1,25 +1,35 @@
 class Bob
   def hey remark
-    if shouting? remark
+    remark = Remark.new(remark)
+
+    if remark.shouting?
       'Whoa, chill out!'
-    elsif asking_a_question? remark
+    elsif remark.asking_a_question?
       'Sure.'
-    elsif silence? remark
+    elsif remark.silence?
       'Fine. Be that way!'
     else
       'Whatever.'
     end
   end
+end
 
-  def shouting? remark
-    !remark.scan(/[a-z]/).any? && remark.scan(/[A-Z]/).any?
+class Remark
+  attr_reader :value
+
+  def initialize value
+    @value = value
   end
 
-  def silence? remark
-    !remark.scan(/[\w\d]/).any?
+  def shouting?
+    !value.scan(/[a-z]/).any? && value.scan(/[A-Z]/).any?
   end
 
-  def asking_a_question? remark
-    remark.chars.last == "?"
+  def silence?
+    value.strip.empty?
+  end
+
+  def asking_a_question?
+    value.chars.last == "?"
   end
 end
