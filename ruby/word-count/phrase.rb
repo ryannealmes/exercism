@@ -3,12 +3,12 @@ class Phrase
 
   def initialize text
     @text = text.downcase
-    @word_count = Hash.new(0)
   end
 
   def word_count
-    words.each { |word| @word_count[word] += 1 } unless @word_count.any?
-    @word_count
+    @word_count ||= Hash.new(0).tap do |word_hash|
+      words.each { |word| word_hash[word] += 1 }
+    end
   end
 
   private
