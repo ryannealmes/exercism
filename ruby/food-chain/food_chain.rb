@@ -1,5 +1,6 @@
 class FoodChainSong
-  LYRICS = {
+
+  VERSE_DATA = {
     1 => { animal: "fly", reaction: "", affect: ""},
     2 => { animal: "spider", reaction: "It wriggled and jiggled and tickled inside her.\n", affect: " that wriggled and jiggled and tickled inside her"},
     3 => { animal: "bird", reaction: "How absurd to swallow a bird!\n", affect: ""},
@@ -10,18 +11,31 @@ class FoodChainSong
     8 => { animal: "horse", reaction: "She's dead, of course!\n", affect: ""}
   }
 
-  def verse number    
-    song = "I know an old lady who swallowed a #{LYRICS[number][:animal]}.\n"
-    song << LYRICS[number][:reaction]
+  def verse number
+    song = "I know an old lady who swallowed a #{VERSE_DATA[number][:animal]}.\n"
+    song << VERSE_DATA[number][:reaction]
 
     unless number == 8
       unless number == 1
         number.downto(2) do |i|
-          song << "She swallowed the #{LYRICS[i][:animal]} to catch the #{LYRICS[i-1][:animal]}#{LYRICS[i-1][:affect]}.\n"
+          song << "She swallowed the #{VERSE_DATA[i][:animal]} to catch the #{VERSE_DATA[i-1][:animal]}#{VERSE_DATA[i-1][:affect]}.\n"
         end
       end
+      song <<  "I don't know why she swallowed the fly. Perhaps she'll die.\n"
     end
 
-    song <<  "I don't know why she swallowed the fly. Perhaps she'll die.\n"
+    song
+  end
+
+  def verses start_verse, end_verse
+    song = ""
+    start_verse.upto(end_verse) do |n|
+      song << verse(n) + "\n"
+    end
+    song
+  end
+
+  def sing
+    verses(1, 8)
   end
 end
