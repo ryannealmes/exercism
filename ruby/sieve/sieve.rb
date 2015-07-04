@@ -1,17 +1,13 @@
 class Sieve
-  attr_reader :value
+  attr_reader :numbers
 
   def initialize value
-    @value = value
+    @numbers = (2..value).to_a
   end
 
   def primes
-    (1..value).select{ |n| prime?(n) }
-  end
-
-  def prime? n
-    (1..n).count { |i| n % i == 0 } == 2
+    numbers.each do |n|
+      numbers.delete_if {|i| i > n && i % n == 0 }
+    end
   end
 end
-
-
